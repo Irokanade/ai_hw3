@@ -63,7 +63,7 @@ class Player:
 	    self.score = 0
             
 
-class Game:
+class GameEngine:
     def __init__(self, rows, cols, board, noOfPlayers):
         self.board = Board(rows, cols, board)
         self.players = []
@@ -82,17 +82,12 @@ class Game:
          return self.board.isGameOver()
 
 
-
 def evaluation(game):
     return game.players[0].score-game.players[1].score
-         
-
 
 
 def minimax(game, depth, alpha, beta, maximizingPlayer):
     if depth == 0 or game.isGameOver():
-        # print('depth: ' + str(depth))
-        # print('eval: ' + str(evaluation(game)))
         return ['-1', -1, evaluation(game)]
 
     if maximizingPlayer:
@@ -108,9 +103,7 @@ def minimax(game, depth, alpha, beta, maximizingPlayer):
             alpha = max(alpha, eval[2])
             if beta <= alpha:
                 break
-        
-        # print('depth: ' + str(depth))
-        # print('maxEval: ' + str(maxEval))
+
         return maxEval
 
     else:
@@ -127,8 +120,6 @@ def minimax(game, depth, alpha, beta, maximizingPlayer):
             if beta <= alpha:
                 break
 
-        # print('depth: ' + str(depth))
-        # print('minEval: ' + str(minEval))
         return minEval
 
 fin = open("input.txt", "r")    
@@ -148,12 +139,8 @@ for line in lines:
     tempLine = [int(x) for x in line.split(" ")]
     board.append(tempLine)
 
-myGame = Game(rows, cols, board, 2)
+myGame = GameEngine(rows, cols, board, 2)
 
-# test print
-# print("rows: " + str(rows))
-# print("cols: " + str(cols))
-# print(board)
 
 print("rows: " + str(myGame.board.rows))
 print("cols: " + str(myGame.board.cols))
