@@ -1,4 +1,5 @@
 import copy
+import time
 
 class Board:
     def __init__(self, rows, cols, board):
@@ -130,13 +131,6 @@ def minimax(game, depth, alpha, beta, maximizingPlayer):
         # print('minEval: ' + str(minEval))
         return minEval
 
-
-
-
-
-
-
-
 fin = open("input.txt", "r")    
 fout = open("output.txt", "w")
 
@@ -167,13 +161,21 @@ print(myGame.board.board)
 
 
 # minimax
+start_time = time.time()
 bestMove = []
 bestMove = minimax(myGame, 100, float('-inf'), float('inf'), True)
+timeTaken = (time.time() - start_time)
 
-#print result
-print('result:')
+
+# print result
 print(str(bestMove[0]) + str(bestMove[1]+1))
 print(bestMove[2])
+print("Total run time = %s seconds." % timeTaken)
+
+# write result to output file
+fout.write(str(bestMove[0]) + str(bestMove[1]+1) + '\n')
+fout.write(str(bestMove[2]) + '\n')
+fout.write("Total run time = %s seconds." % timeTaken)
 
 fin.close()
 fout.close()
